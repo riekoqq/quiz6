@@ -18,7 +18,6 @@ def create_post(request):
             post.User = request.user  # Assign the logged-in user to the post
             post.save()  # Now save the post
             messages.success(request, 'Post created successfully!')
-            return redirect('home')  # Redirect to home or wherever you want
     else:
         form = PostForm()
 
