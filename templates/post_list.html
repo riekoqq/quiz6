@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center">Posts</h1>
+
+        {% for post in page_obj %}
+            <div class="post border p-3 mb-3">
+                <p><strong>{{ post.User.username|slice:":4" }}***</strong></p>
+                <p>{{ post.Content|truncatechars:100 }}</p>
+                {% if post.Content|length > 100 %}
+                    <a href="#" onclick="alert('{{ post.Content|escapejs }}'); return false;">See more</a>
+                {% endif %}
+                <p class="text-muted">Posted on: {{ post.Created_at|date:"Y-m-d" }}</p>
+            </div>
+        {% empty %}
+            <p class="text-center">No posts available.</p>
+        {% endfor %}
+
+        <div class="pagination mt-4">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="btn btn-link">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-link">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-link">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-link">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

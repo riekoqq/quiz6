@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mt-4">Welcome to the Home Page!</h1>
+
+    <div class="text-center mt-4">
+        <p>
+            <a class="btn btn-danger" href="{% url 'account:logout' %}">Logout</a>
+        </p>
+
+        <p>
+            <a class="btn btn-primary" href="{% url 'posts:create' %}">Create a Post</a>
+        </p>
+    </div>
+{% endblock %}
